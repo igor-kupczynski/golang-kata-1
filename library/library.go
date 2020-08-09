@@ -42,3 +42,8 @@ func (x Item) String() string {
 	return fmt.Sprintf("“%s” by %s, isbn: %s, published: %s",
 		x.Title, strings.Join(authors, " & "), x.Isbn, x.PublishedAt.Format("2006-01-02"))
 }
+
+type Catalogue struct {
+	Authors []Author
+	Items   map[string]Item
+}
