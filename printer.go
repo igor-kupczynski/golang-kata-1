@@ -31,10 +31,23 @@ func printCatalogue(catalogue *library.Catalogue) {
 }
 
 func printWithIsbn(catalogue *library.Catalogue, isbn string) {
-	item, ok := catalogue.Items[isbn]
+	item, ok := catalogue.GetByIsbn(isbn)
 	if !ok {
 		fmt.Printf("No items with isbn: %s\n\n", isbn)
 		return
 	}
 	fmt.Printf("Found %s: %s\n\n", item.Kind, item)
+}
+
+func printWithEmail(catalogue *library.Catalogue, email string) {
+	matching := catalogue.FindByAuthorEmail(email)
+	fmt.Printf("# Items for author %s\n", email)
+	if len(matching) == 0 {
+		fmt.Printf("- no items found\n\n")
+		return
+	}
+	for _, item := range matching {
+		fmt.Printf("- %s: %s\n", item.Kind, item)
+	}
+	fmt.Println("")
 }

@@ -47,3 +47,22 @@ type Catalogue struct {
 	Authors []Author
 	Items   map[string]Item
 }
+
+func (c *Catalogue) GetByIsbn(isbn string) (Item, bool) {
+	item, ok := c.Items[isbn]
+	return item, ok
+}
+
+func (c *Catalogue) FindByAuthorEmail(email string) []Item {
+	// This is slow and can be improved
+	matching := make([]Item, 0)
+	for _, item := range c.Items {
+		for _, author := range item.Authors {
+			if author.Email == email {
+				matching = append(matching, item)
+				break
+			}
+		}
+	}
+	return matching
+}
