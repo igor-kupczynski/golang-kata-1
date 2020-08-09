@@ -6,7 +6,8 @@ import (
 )
 
 func main() {
-	var printAll = flag.Bool("printAll", false, "print all in the catalogue")
+	var printAll = flag.Bool("printAll", false, "print all authors and items in the catalogue")
+	var byTitle = flag.Bool("byTitle", false, "print all items in the catalogue sorted by title")
 	var findIsbn = flag.String("findIsbn", "", "find a book or magazine by isbn")
 	var findEmail = flag.String("findEmail", "", "find a book or magazine by email of one of the authors")
 
@@ -27,5 +28,9 @@ func main() {
 
 	if *findEmail != "" {
 		printWithEmail(catalogue, *findEmail)
+	}
+
+	if *byTitle {
+		printSortedByTitle(catalogue)
 	}
 }

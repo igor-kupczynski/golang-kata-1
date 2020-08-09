@@ -51,3 +51,12 @@ func printWithEmail(catalogue *library.Catalogue, email string) {
 	}
 	fmt.Println("")
 }
+
+func printSortedByTitle(catalogue *library.Catalogue) {
+	items := catalogue.ListSortedByTitle()
+	fmt.Printf("# All items (sorted by title)\n")
+	for _, item := range items {
+		fmt.Printf("- %s: %s\n", item.Kind, item)
+	}
+	fmt.Println("")
+}

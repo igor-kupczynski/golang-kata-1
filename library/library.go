@@ -2,6 +2,7 @@ package library
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 	"time"
 )
@@ -43,6 +44,12 @@ func (x Item) String() string {
 		x.Title, strings.Join(authors, " & "), x.Isbn, x.PublishedAt.Format("2006-01-02"))
 }
 
+type byTitle []Item
+
+func (x byTitle) Len() int           { return len(x) }
+func (x byTitle) Swap(i, j int)      { x[i], x[j] = x[j], x[i] }
+func (x byTitle) Less(i, j int) bool { return x[i].Title < x[j].Title }
+
 type Catalogue struct {
 	Authors []Author
 	Items   map[string]Item
@@ -65,4 +72,13 @@ func (c *Catalogue) FindByAuthorEmail(email string) []Item {
 		}
 	}
 	return matching
+}
+
+func (c *Catalogue) ListSortedByTitle() []Item {
+	items := make([]Item, 0, len(c.Items))
+	for _, item := range c.Items {
+		items = append(items, item)
+	}
+	sort.Sort(byTitle(items))
+	return items
 }
