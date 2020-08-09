@@ -29,3 +29,12 @@ func printCatalogue(catalogue *library.Catalogue) {
 	}
 	fmt.Println("")
 }
+
+func printWithIsbn(catalogue *library.Catalogue, isbn string) {
+	item, ok := catalogue.Items[isbn]
+	if !ok {
+		fmt.Printf("No items with isbn: %s\n\n", isbn)
+		return
+	}
+	fmt.Printf("Found %s: %s\n\n", item.Kind, item)
+}
